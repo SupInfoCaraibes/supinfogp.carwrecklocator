@@ -4,5 +4,7 @@
     <string name="app_name">CarWreckLocator</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="btn_take_photo">Photographier l\'épave</string>
+    <string name="btn_capture_photo">Photographier</string>
 
 </resources>
