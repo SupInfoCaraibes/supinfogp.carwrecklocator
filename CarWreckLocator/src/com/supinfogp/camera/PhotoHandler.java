@@ -25,9 +25,7 @@ public class PhotoHandler implements PictureCallback {
 		// TODO Auto-generated method stub
 		File pictureFileDir = getDir();
 		
-		boolean val = pictureFileDir.exists();
-		val = pictureFileDir.mkdirs();
-		if (pictureFileDir.exists() && !pictureFileDir.mkdirs()) {
+		if (!pictureFileDir.exists() && !pictureFileDir.mkdirs()) {
 			if(!pictureFileDir.isDirectory())
 			Log.d("CWL", "Impossible de créer le répertoire pour sauver l'image.");
 			Toast.makeText(mContext, "Impossible de créer le répertoire pour sauver l'image.",
@@ -61,6 +59,6 @@ public class PhotoHandler implements PictureCallback {
 	private File getDir() {
 	    File sdDir = Environment
 	      .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-	    return sdDir;
-	    //return new File(sdDir, "CameraAPIDemo");
+	    //return sdDir;
+	    return new File(sdDir, "CameraAPIDemo");
 	  }}
