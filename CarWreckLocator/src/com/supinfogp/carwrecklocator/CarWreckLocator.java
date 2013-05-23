@@ -24,6 +24,7 @@ public class CarWreckLocator extends Activity {
 				Log.i("CWL", "couleur retournée: "+photoData[1]);
 				Log.i("CWL", "immatriculation retournée: "+photoData[2]);
 				Intent intentCamera = new Intent(getApplicationContext(), CameraActivity.class);
+				intentCamera.putExtra("com.supinfogp.carwrecklocator.photodata", photoData);
 				startActivity(intentCamera);
 			}
 		}

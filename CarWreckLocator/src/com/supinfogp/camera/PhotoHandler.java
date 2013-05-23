@@ -2,6 +2,7 @@ package com.supinfogp.camera;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,12 +14,16 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.supinfogp.exif.ExifHelper;
+
 public class PhotoHandler implements PictureCallback {
 
 	private final Context mContext;
+	private final String [] mPhotoData;
 
-	public PhotoHandler(Context context) {
+	public PhotoHandler(Context context, String [] photoData) {
 		this.mContext = context;
+		this.mPhotoData = photoData;
 	}
 	@Override
 	public void onPictureTaken(byte[] data, Camera arg1) {
@@ -34,7 +39,7 @@ public class PhotoHandler implements PictureCallback {
 
 		}
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss", Locale.FRANCE);
 		String date = dateFormat.format(new Date());
 		String photoFile = "Image_" + date + ".jpg";
 
@@ -53,6 +58,16 @@ public class PhotoHandler implements PictureCallback {
 					+ error.getMessage());
 			Toast.makeText(mContext, "Impossible de sauvegarder l'image.",
 					Toast.LENGTH_LONG).show();
+		}
+		
+		//Ecriture des information Exif
+		try {
+			ExifHelper exifHelper = new ExifHelper(filename, mPhotoData);
+			exifHelper.InitExifInterface();
+			exifHelper.WriteExifData();
+		}
+		catch(Exception error) {
+			Log.d("CWL", "Erreur lors de la sauvegarde Exif: "+error.getMessage());
 		}
 	}
 	

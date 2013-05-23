@@ -2,8 +2,10 @@
 package com.supinfogp.camera;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -29,6 +31,14 @@ public class CameraActivity extends Activity {
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
         
+        
+        Intent cameraIntent = getIntent();
+        
+		final String [] photoData = cameraIntent.getStringArrayExtra("com.supinfogp.carwrecklocator.photodata");
+		Log.i("CWL", "marque retournée: "+photoData[0]);
+		Log.i("CWL", "couleur retournée: "+photoData[1]);
+		Log.i("CWL", "immatriculation retournée: "+photoData[2]);
+        
         Button btnCapture = (Button)findViewById(R.id.btn_capture);
         btnCapture.setOnClickListener(new View.OnClickListener() {
 			
@@ -38,7 +48,7 @@ public class CameraActivity extends Activity {
 				mCamera.takePicture(
 							null, 
 							null, 
-							new PhotoHandler(getApplicationContext()));
+							new PhotoHandler(getApplicationContext(), photoData));
 			}
 		});
     }
