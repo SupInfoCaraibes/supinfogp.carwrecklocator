@@ -44,7 +44,7 @@ public class PhotoHandler implements PictureCallback {
 		String photoFile = "Image_" + date + ".jpg";
 
 		String filename = pictureFileDir.getPath() + File.separator + photoFile;
-
+		Log.i("CWL","file path: "+filename);
 		File pictureFile = new File(filename);
 
 		try {
